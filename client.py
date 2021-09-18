@@ -4,16 +4,19 @@ import socket
 HOST = 'localhost'
 PORT = 4444
 
-def send_message():
+def connect():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         s.sendall(bytes(input.get(), 'utf-8'))
         data = s.recv(1024)
+        return data
+
+def send_message():
     chat_box.configure(state=NORMAL)
     message = input.get()
     chat_box.insert(END, message + '\n')
     chat_box.configure(state=DISABLED)
-    print('Received', data.decode('utf-8'))
+    print('Received', connect().decode('utf-8'))
 
 window = Tk()
 window.title("Chatter")
