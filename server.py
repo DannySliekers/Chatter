@@ -18,5 +18,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 for message in message_queue:
                     conn.sendall(message_queue.pop(0))
             data = conn.recv(1024)
-            message_queue.append(data)
+            if data != b' ':
+                message_queue.append(data)
             if not data: break
