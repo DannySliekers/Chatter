@@ -8,13 +8,15 @@ def connect():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         s.sendall(bytes(input.get(), 'utf-8'))
-        data = s.recv(1024)
-        return data
+        data = s.recv(1024).decode('utf-8')
+        name = str(s.getsockname())
+        return data, name
 
 def send_message():
     chat_box.configure(state=NORMAL)
-    message = connect().decode('utf-8')
-    chat_box.insert(END, message + '\n')
+    message, name = connect()
+    formatted_output = name + ': ' + message + '\n'
+    chat_box.insert(END, formatted_output)
     input.delete(0, END)
     chat_box.configure(state=DISABLED)
 
