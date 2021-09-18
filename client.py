@@ -13,10 +13,10 @@ def connect():
 
 def send_message():
     chat_box.configure(state=NORMAL)
-    message = input.get()
+    message = connect().decode('utf-8')
     chat_box.insert(END, message + '\n')
+    input.delete(0, END)
     chat_box.configure(state=DISABLED)
-    print('Received', connect().decode('utf-8'))
 
 window = Tk()
 window.title("Chatter")
