@@ -4,6 +4,7 @@ import socket
 HOST = 'localhost'
 PORT = 4444
 
+
 def send_message():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
