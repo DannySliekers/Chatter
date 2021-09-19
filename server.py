@@ -16,6 +16,7 @@ def handle_messages(conn):
         data = conn.recv(1024)
         if data != b' ':
             message_queue.append(data)
+            message_queue.append(data)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
