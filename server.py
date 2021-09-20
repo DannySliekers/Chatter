@@ -8,20 +8,17 @@ message_queue = []
 unique_ids_connected = []
 
 
-def generate_messages_for_unique_id():
-    pass
-
-
 # todo add a message for every single unique id connected
 def handle_send_message(package):
-    message_package = '___'.join(package)
-    message_queue.append(message_package)
+    for i in range(len(unique_ids_connected)):
+        message_queue.append('___'.join((unique_ids_connected[i], package[1])))
 
 
 def handle_get_message(unique_id):
-    for messages in message_queue:
+    for id, messages in enumerate(message_queue):
         message_package = messages.split('___')
         if unique_id == message_package[0]:
+            message_queue.pop(id)
             return message_package[1]
 
 
