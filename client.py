@@ -1,10 +1,10 @@
 from tkinter import *
 import socket
-import uniqueid
+import unique_id
 
 HOST = 'localhost'
 PORT = 4444
-UNIQUE_ID = uniqueid.generate_unique_id()
+UNIQUE_ID = unique_id.generate_unique_id()
 
 def send_message():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
