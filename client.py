@@ -1,10 +1,20 @@
 import tkinter as tk
 import socket
 import unique_id
+import atexit
 
 HOST = 'localhost'
 PORT = 4444
 UNIQUE_ID = unique_id.generate_unique_id()
+
+
+def sign_out():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        package = '___'.join(('SIGNOUT', UNIQUE_ID))
+        s.sendall(bytes(package, 'utf-8'))
+        s.recv(1024)
+        print("test")
 
 
 def send_message():
@@ -57,4 +67,5 @@ chat_box.configure(state=tk.DISABLED)
 chat_box.grid(row=0, column=0, columnspan=2)
 
 window.after(500, print_message)
+atexit.register(sign_out)
 window.mainloop()
