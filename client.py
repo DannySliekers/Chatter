@@ -1,14 +1,16 @@
 from tkinter import *
 import socket
+import uniqueid
 
 HOST = 'localhost'
 PORT = 4444
-
+UNIQUE_ID = uniqueid.generate_unique_id()
 
 def send_message():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        s.sendall(bytes(input.get(), 'utf-8'))
+        package = '___'.join((UNIQUE_ID, input.get()))
+        s.sendall(bytes(package, 'utf-8'))
         data = s.recv(1024)
 
 def print_message():
@@ -21,10 +23,11 @@ def print_message():
         chat_box.configure(state=DISABLED)
     window.after(500, print_message)
 
+#todo remove sockname and add unique id or translate it to an username?
 def get_messages():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        s.sendall(b' ')
+        s.sendall(bytes(UNIQUE_ID, 'utf-8'))
         message = s.recv(1024).decode('utf-8')
         name = str(s.getsockname())
         return message, name
