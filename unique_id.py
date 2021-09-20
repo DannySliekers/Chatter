@@ -3,8 +3,9 @@ import random
 
 
 def generate_unique_id():
-    letters = (string.ascii_uppercase, string.ascii_lowercase)
+    upper = string.ascii_uppercase
+    lower = string.ascii_lowercase
     digits = string.digits
-    dictionary = ''.join((str(letters), digits))
+    dictionary = ''.join((upper, lower, digits))
     unique_id = ''.join(random.choices(dictionary, k=24))
     return unique_id

@@ -26,25 +26,23 @@ def send_message():
 
 
 def print_message():
-    message, name = get_messages()
+    message = get_messages()
     if message != ' ':
         chat_box.configure(state=tk.NORMAL)
-        formatted_output = name + ': ' + message + '\n'
+        formatted_output = UNIQUE_ID + ': ' + message + '\n'
         chat_box.insert(tk.END, formatted_output)
         input.delete(0, tk.END)
         chat_box.configure(state=tk.DISABLED)
     window.after(500, print_message)
 
 
-# todo remove sockname and add unique id or translate it to an username?
 def get_messages():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         package = '___'.join(('GETMESSAGE', UNIQUE_ID))
         s.sendall(bytes(package, 'utf-8'))
         message = s.recv(1024).decode('utf-8')
-        name = str(s.getsockname())
-        return message, name
+        return message
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
