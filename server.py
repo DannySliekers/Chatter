@@ -12,7 +12,7 @@ def generate_messages_for_unique_id():
     pass
 
 
-#todo add a message for every single unique id connected
+# todo add a message for every single unique id connected
 def handle_send_message(package):
     message_package = '___'.join(package)
     message_queue.append(message_package)
