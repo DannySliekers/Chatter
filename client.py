@@ -12,7 +12,7 @@ def send_message():
         s.connect((HOST, PORT))
         package = '___'.join((UNIQUE_ID, input.get()))
         s.sendall(bytes(package, 'utf-8'))
-        data = s.recv(1024)
+        s.recv(1024)
 
 
 def print_message():
@@ -30,11 +30,18 @@ def print_message():
 def get_messages():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        s.sendall(bytes(UNIQUE_ID, 'utf-8'))
+        package = '___'.join(('GETMESSAGE', UNIQUE_ID))
+        s.sendall(bytes(package, 'utf-8'))
         message = s.recv(1024).decode('utf-8')
         name = str(s.getsockname())
         return message, name
 
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((HOST, PORT))
+    package = '___'.join(('SIGNIN', UNIQUE_ID))
+    s.sendall(bytes(package, 'utf-8'))
+    s.recv(1024)
 
 window = Tk()
 window.title("Chatter")
