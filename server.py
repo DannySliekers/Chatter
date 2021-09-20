@@ -6,6 +6,7 @@ PORT = 4444
 
 message_queue = []
 
+
 #todo add unique ids and handle messages that way also something something usernames
 def handle_messages(conn):
     with conn:

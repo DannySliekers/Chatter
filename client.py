@@ -6,12 +6,14 @@ HOST = 'localhost'
 PORT = 4444
 UNIQUE_ID = unique_id.generate_unique_id()
 
+
 def send_message():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         package = '___'.join((UNIQUE_ID, input.get()))
         s.sendall(bytes(package, 'utf-8'))
         data = s.recv(1024)
+
 
 def print_message():
     message, name = get_messages()
@@ -22,6 +24,7 @@ def print_message():
         input.delete(0, END)
         chat_box.configure(state=DISABLED)
     window.after(500, print_message)
+
 
 #todo remove sockname and add unique id or translate it to an username?
 def get_messages():
