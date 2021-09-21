@@ -49,11 +49,16 @@ def handle_action(conn):
             handle_sign_out(package_received[1])
 
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    while True:
-        conn, adress = s.accept()
-        print('Connected by', adress)
-        client_thread = threading.Thread(target=handle_action(conn))
-        client_thread.start()
+def main():
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST, PORT))
+        s.listen()
+        while True:
+            conn, adress = s.accept()
+            print('Connected by', adress)
+            client_thread = threading.Thread(target=handle_action(conn))
+            client_thread.start()
+
+
+if __name__ == '__main__':
+    main()
